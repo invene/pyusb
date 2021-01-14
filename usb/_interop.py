@@ -87,16 +87,16 @@ def as_array(data=None):
     if data is None:
         return array.frombytes([])
     print("DATA: ", data);
-    
+
     if isinstance(data, (bytes, bytearray)):
         return data
 
     try:
-        return array.frombytes(data)
+        return array.array('B', data)
     except TypeError:
         # When you pass a unicode string or a character sequence,
         # you get a TypeError if the first parameter does not match
 
-        # WILL THROW ERROR HERE
         a = array.array('B')
+        a.frombytes(data);
         return a
