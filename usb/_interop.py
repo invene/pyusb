@@ -85,16 +85,17 @@ except (ImportError, AttributeError):
 # definite 3.2+ API (bytearrays?) with a fallback provided for 2.4+.
 def as_array(data=None):
     if data is None:
-        return array.array('B')
+        return array.frombytes([])
 
     if isinstance(data, array.array):
         return data
 
     try:
-        return array.array('B', data)
+        return array.frombytes(data)
     except TypeError:
         # When you pass a unicode string or a character sequence,
         # you get a TypeError if the first parameter does not match
+
+        # WILL THROW ERROR HERE
         a = array.array('B')
-        a.frombytes(data)
         return a
