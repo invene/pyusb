@@ -34,7 +34,7 @@
 # hack we need to do, this makes maintenance easier... ^^
 
 import sys
-from array import array # Gets rid of the AttributeError: module 'array' has no attribute 'frombytes'
+import array as arr # Gets rid of the AttributeError: module 'array' has no attribute 'frombytes'
 
 __all__ = ['_reduce', '_set', '_next', '_update_wrapper']
 
@@ -85,18 +85,18 @@ except (ImportError, AttributeError):
 # definite 3.2+ API (bytearrays?) with a fallback provided for 2.4+.
 def as_array(data=None):
     if data is None:
-        return array.frombytes([])
+        return arr.array('B', [])
     print("DATA: ", data);
 
     if isinstance(data, (bytes, bytearray)):
         return data
 
     try:
-        return array.array('B', data)
+        return arr.array('B', data)
     except TypeError:
-        # When you pass a unicode string or a character sequence,
-        # you get a TypeError if the first parameter does not match
-
-        a = array.array('B')
-        a.frombytes(data);
+        # When you pass in a string, convert it to an array. Have to use an intemediary as a bytearray as it demands an array
+        a = arr.array('B', [])
+        tempArray = bytearray(data, 'utf-8')
+        for byte in tempArray:
+            a.append(byte);
         return a
