@@ -86,7 +86,6 @@ except (ImportError, AttributeError):
 def as_array(data=None):
     if data is None:
         return arr.array('B', [])
-    print("DATA: ", data);
 
     if isinstance(data, (bytes, bytearray)):
         return data
