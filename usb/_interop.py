@@ -34,7 +34,7 @@
 # hack we need to do, this makes maintenance easier... ^^
 
 import sys
-import array
+from array import array # Gets rid of the AttributeError: module 'array' has no attribute 'frombytes'
 
 __all__ = ['_reduce', '_set', '_next', '_update_wrapper']
 
